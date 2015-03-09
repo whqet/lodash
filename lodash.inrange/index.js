@@ -1,5 +1,5 @@
 /**
- * lodash 3.3.1 (Custom Build) <https://lodash.com/>
+ * lodash 3.3.2 (Custom Build) <https://lodash.com/>
  * Build: `lodash modern modularize exports="npm" -o ./`
  * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
  * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
@@ -13,7 +13,7 @@ var nativeMax = Math.max,
 
 /**
  * Checks if `n` is between `start` and up to but not including, `end`. If
- * `end` is not specified it is set to `start` with `start` then set to `0`.
+ * `end` is not specified it's set to `start` with `start` then set to `0`.
  *
  * @static
  * @memberOf _
@@ -44,7 +44,7 @@ var nativeMax = Math.max,
  */
 function inRange(value, start, end) {
   start = +start || 0;
-  if (typeof end === 'undefined') {
+  if (end === undefined) {
     end = start;
     start = 0;
   } else {
