@@ -1,12 +1,12 @@
-var baseToString = require('../internal/baseToString'),
-    escapeHtmlChar = require('../internal/escapeHtmlChar');
+var escapeHtmlChar = require('../internal/escapeHtmlChar'),
+    toString = require('../lang/toString');
 
 /** Used to match HTML entities and HTML characters. */
 var reUnescapedHtml = /[&<>"'`]/g,
     reHasUnescapedHtml = RegExp(reUnescapedHtml.source);
 
 /**
- * Converts the characters "&", "<", ">", '"', "'", and "\`", in `string` to
+ * Converts the characters "&", "<", ">", '"', "'", and "\`" in `string` to
  * their corresponding HTML entities.
  *
  * **Note:** No other characters are escaped. To escape additional characters
@@ -38,8 +38,7 @@ var reUnescapedHtml = /[&<>"'`]/g,
  * // => 'fred, barney, &amp; pebbles'
  */
 function escape(string) {
-  // Reset `lastIndex` because in IE < 9 `String#replace` does not.
-  string = baseToString(string);
+  string = toString(string);
   return (string && reHasUnescapedHtml.test(string))
     ? string.replace(reUnescapedHtml, escapeHtmlChar)
     : string;

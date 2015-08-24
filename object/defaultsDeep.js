@@ -1,6 +1,6 @@
-var createDefaults = require('../internal/createDefaults'),
-    merge = require('./merge'),
-    mergeDefaults = require('../internal/mergeDefaults');
+var mergeDefaults = require('../internal/mergeDefaults'),
+    mergeWith = require('./mergeWith'),
+    rest = require('../function/rest');
 
 /**
  * This method is like `_.defaults` except that it recursively assigns
@@ -20,6 +20,9 @@ var createDefaults = require('../internal/createDefaults'),
  * // => { 'user': { 'name': 'barney', 'age': 36 } }
  *
  */
-var defaultsDeep = createDefaults(merge, mergeDefaults);
+var defaultsDeep = rest(function(args) {
+  args.push(undefined, mergeDefaults);
+  return mergeWith.apply(undefined, args);
+});
 
 module.exports = defaultsDeep;

@@ -1,8 +1,8 @@
 var invokePath = require('../internal/invokePath'),
-    restParam = require('../function/restParam');
+    rest = require('../function/rest');
 
 /**
- * Creates a function that invokes the method at `path` on a given object.
+ * Creates a function that invokes the method at `path` of a given object.
  * Any additional arguments are provided to the invoked method.
  *
  * @static
@@ -24,7 +24,7 @@ var invokePath = require('../internal/invokePath'),
  * _.invoke(_.sortBy(objects, _.method(['a', 'b', 'c'])), 'a.b.c');
  * // => [1, 2]
  */
-var method = restParam(function(path, args) {
+var method = rest(function(path, args) {
   return function(object) {
     return invokePath(object, path, args);
   };

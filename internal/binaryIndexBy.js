@@ -1,10 +1,10 @@
-/* Native method references for those with the same name as other `lodash` methods. */
-var nativeFloor = Math.floor,
-    nativeMin = Math.min;
-
 /** Used as references for the maximum length and index of an array. */
 var MAX_ARRAY_LENGTH = 4294967295,
     MAX_ARRAY_INDEX = MAX_ARRAY_LENGTH - 1;
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeFloor = Math.floor,
+    nativeMin = Math.min;
 
 /**
  * This function is like `binaryIndex` except that it invokes `iteratee` for
@@ -14,10 +14,9 @@ var MAX_ARRAY_LENGTH = 4294967295,
  * @private
  * @param {Array} array The sorted array to inspect.
  * @param {*} value The value to evaluate.
- * @param {Function} iteratee The function invoked per iteration.
+ * @param {Function} iteratee The iteratee invoked per element.
  * @param {boolean} [retHighest] Specify returning the highest qualified index.
- * @returns {number} Returns the index at which `value` should be inserted
- *  into `array`.
+ * @returns {number} Returns the index at which `value` should be inserted into `array`.
  */
 function binaryIndexBy(array, value, iteratee, retHighest) {
   value = iteratee(value);

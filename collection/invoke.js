@@ -1,8 +1,8 @@
 var baseEach = require('../internal/baseEach'),
     invokePath = require('../internal/invokePath'),
-    isArrayLike = require('../internal/isArrayLike'),
+    isArrayLike = require('../lang/isArrayLike'),
     isKey = require('../internal/isKey'),
-    restParam = require('../function/restParam');
+    rest = require('../function/rest');
 
 /**
  * Invokes the method at `path` of each element in `collection`, returning
@@ -13,7 +13,7 @@ var baseEach = require('../internal/baseEach'),
  * @static
  * @memberOf _
  * @category Collection
- * @param {Array|Object|string} collection The collection to iterate over.
+ * @param {Array|Object} collection The collection to iterate over.
  * @param {Array|Function|string} path The path of the method to invoke or
  *  the function invoked per iteration.
  * @param {...*} [args] The arguments to invoke the method with.
@@ -26,7 +26,7 @@ var baseEach = require('../internal/baseEach'),
  * _.invoke([123, 456], String.prototype.split, '');
  * // => [['1', '2', '3'], ['4', '5', '6']]
  */
-var invoke = restParam(function(collection, path, args) {
+var invoke = rest(function(collection, path, args) {
   var index = -1,
       isFunc = typeof path == 'function',
       isProp = isKey(path),

@@ -1,9 +1,9 @@
 var invokePath = require('../internal/invokePath'),
-    restParam = require('../function/restParam');
+    rest = require('../function/rest');
 
 /**
  * The opposite of `_.method`; this method creates a function that invokes
- * the method at a given path on `object`. Any additional arguments are
+ * the method at a given path of `object`. Any additional arguments are
  * provided to the invoked method.
  *
  * @static
@@ -23,7 +23,7 @@ var invokePath = require('../internal/invokePath'),
  * _.map([['a', '2'], ['c', '0']], _.methodOf(object));
  * // => [2, 0]
  */
-var methodOf = restParam(function(object, args) {
+var methodOf = rest(function(object, args) {
   return function(path) {
     return invokePath(object, path, args);
   };

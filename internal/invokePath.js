@@ -1,11 +1,10 @@
-var baseGet = require('./baseGet'),
-    baseSlice = require('./baseSlice'),
+var baseToPath = require('./baseToPath'),
     isKey = require('./isKey'),
     last = require('../array/last'),
-    toPath = require('./toPath');
+    parent = require('./parent');
 
 /**
- * Invokes the method at `path` on `object`.
+ * Invokes the method at `path` of `object`.
  *
  * @private
  * @param {Object} object The object to query.
@@ -14,9 +13,9 @@ var baseGet = require('./baseGet'),
  * @returns {*} Returns the result of the invoked method.
  */
 function invokePath(object, path, args) {
-  if (object != null && !isKey(path, object)) {
-    path = toPath(path);
-    object = path.length == 1 ? object : baseGet(object, baseSlice(path, 0, -1));
+  if (!isKey(path, object)) {
+    path = baseToPath(path);
+    object = parent(object, path);
     path = last(path);
   }
   var func = object == null ? object : object[path];
