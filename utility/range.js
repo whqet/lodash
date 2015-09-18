@@ -1,6 +1,8 @@
+import baseTimes from '../internal/baseTimes';
 import isIterateeCall from '../internal/isIterateeCall';
+import toNumber from '../lang/toNumber';
 
-/* Native method references for those with the same name as other `lodash` methods. */
+/* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeCeil = Math.ceil,
     nativeMax = Math.max;
 
@@ -9,6 +11,9 @@ var nativeCeil = Math.ceil,
  * `start` up to, but not including, `end`. If `end` is not specified it's
  * set to `start` with `start` then set to `0`. If `end` is less than `start`
  * a zero-length range is created unless a negative `step` is specified.
+ *
+ * **Note:** JavaScript follows the IEEE-754 standard for resolving
+ * floating-point values which can produce unexpected results.
  *
  * @static
  * @memberOf _
@@ -41,26 +46,20 @@ function range(start, end, step) {
   if (step && isIterateeCall(start, end, step)) {
     end = step = undefined;
   }
-  start = +start || 0;
-  step = step == null ? 1 : (+step || 0);
+  start = toNumber(start);
+  start = start === start ? start : 0;
+  step = step === undefined ? 1 : (toNumber(step) || 0);
 
-  if (end == null) {
+  if (end === undefined) {
     end = start;
     start = 0;
   } else {
-    end = +end || 0;
+    end = toNumber(end) || 0;
   }
-  // Use `Array(length)` so engines like Chakra and V8 avoid slower modes.
-  // See https://youtu.be/XAqIpGU8ZZk#t=17m25s for more details.
-  var index = -1,
-      length = nativeMax(nativeCeil((end - start) / (step || 1)), 0),
-      result = Array(length);
-
-  while (++index < length) {
-    result[index] = start;
-    start += step;
-  }
-  return result;
+  var n = nativeMax(nativeCeil((end - start) / (step || 1)), 0);
+  return baseTimes(n, function(index) {
+    return index ? (start += step) : start;
+  });
 }
 
 export default range;

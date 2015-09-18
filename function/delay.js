@@ -1,5 +1,6 @@
 import baseDelay from '../internal/baseDelay';
-import restParam from './restParam';
+import rest from './rest';
+import toNumber from '../lang/toNumber';
 
 /**
  * Invokes `func` after `wait` milliseconds. Any additional arguments are
@@ -19,8 +20,8 @@ import restParam from './restParam';
  * }, 1000, 'later');
  * // => logs 'later' after one second
  */
-var delay = restParam(function(func, wait, args) {
-  return baseDelay(func, wait, args);
+var delay = rest(function(func, wait, args) {
+  return baseDelay(func, toNumber(wait) || 0, args);
 });
 
 export default delay;

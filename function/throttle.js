@@ -7,9 +7,11 @@ var FUNC_ERROR_TEXT = 'Expected a function';
 /**
  * Creates a throttled function that only invokes `func` at most once per
  * every `wait` milliseconds. The throttled function comes with a `cancel`
- * method to cancel delayed invocations. Provide an options object to indicate
- * that `func` should be invoked on the leading and/or trailing edge of the
- * `wait` timeout. Subsequent calls to the throttled function return the
+ * method to cancel delayed `func` invocations and a `flush` method to
+ * immediately invoke them. Provide an options object to indicate whether
+ * `func` should be invoked on the leading and/or trailing edge of the `wait`
+ * timeout. The `func` is invoked with the last arguments provided to the
+ * throttled function. Subsequent calls to the throttled function return the
  * result of the last `func` call.
  *
  * **Note:** If `leading` and `trailing` options are `true`, `func` is invoked
@@ -50,13 +52,11 @@ function throttle(func, wait, options) {
   if (typeof func != 'function') {
     throw new TypeError(FUNC_ERROR_TEXT);
   }
-  if (options === false) {
-    leading = false;
-  } else if (isObject(options)) {
+  if (isObject(options)) {
     leading = 'leading' in options ? !!options.leading : leading;
     trailing = 'trailing' in options ? !!options.trailing : trailing;
   }
-  return debounce(func, wait, { 'leading': leading, 'maxWait': +wait, 'trailing': trailing });
+  return debounce(func, wait, { 'leading': leading, 'maxWait': wait, 'trailing': trailing });
 }
 
 export default throttle;
