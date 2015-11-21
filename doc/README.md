@@ -1,4 +1,4 @@
-# <a href="https://lodash.com/">lodash</a> <span>v3.10.1</span>
+# <a href="https://lodash.com/">lodash</a> <span>v3.10.1</span>中文版
 
 <!-- div class="toc-container" -->
 
